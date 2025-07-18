@@ -6,4 +6,7 @@
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
     </style>
 
+    <!-- FCM notification color -->
+    <color name="colorAccent">#4285f4</color>
+
 </resources>
