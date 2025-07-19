@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop - Animora</title>
+    <link rel="icon" href="images/nicee.png" type="image/png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Orbitron", sans-serif;
+        background: #333 url("images/text.png") center/cover no-repeat;
+        color: white;
+        min-height: 100vh;
+      }
+
+      .header-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        background: radial-gradient(ellipse at top left, #000 30%, #57007f 80%);
+        border-bottom-left-radius: 30% 30%;
+        border-bottom-right-radius: 30% 30%;
+        z-index: 0;
+      }
+
+      .navbar {
+        position: relative;
+        width: 100%;
+        padding: 3% 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+      }
+
+      .navbar .logo {
+        font-family: "Great Vibes", cursive;
+        font-size: 2em;
+        color: #fff;
+        flex: 1;
+        z-index: 2;
+      }
+
+      .navbar .nav-links {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        gap: 5%;
+        z-index: 2;
+      }
+
+      .navbar .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1em;
+        position: relative;
+      }
+
+      .navbar .nav-links a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -0.4em;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #fff;
+      }
+
+      .navbar .nav-links a.active:hover::after {
+        background: #c800ff78;
+      }
+
+      .nav-links a:hover {
+        color: #c800ff78;
+      }
+
+      .monster {
+        position: absolute;
+        top: -33px;
+        right: 40px;
+        z-index: 1;
+      }
+
+      .monster-image {
+        width: 100%;
+        max-width: 250px;
+        height: 250px;
+      }
+
+      .shop-section {
+        padding: 20px 25px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 900px) {
+        .shop-section {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .shop-section {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 600px) {
+        .nav-links a.active {
+          border-bottom: 2px solid white;
+          padding-bottom: 4px;
+        }
+      }
+
+      .product-card {
+        background-color: rgba(255, 255, 255, 0.08);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: scale(1.05);
+      }
+
+      .image-container {
+        position: relative;
+        width: 100%;
+      }
+      .add-to-cart-white {
+        display: block;
+        width: 100%;
+        max-height: 200px;
+        object-fit: contain;
+        background-color: #cac4c4;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      .add-to-cart {
+        display: block;
+        width: 100%;
+        max-height: 200px;
+        object-fit: contain;
+        background-color: #222;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+
+      .search-icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+        opacity: 0.9;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .search-icon:hover {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+
+      .product-title {
+        font-size: 0.9em;
+        margin: 8px 0;
+      }
+
+      .price {
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .stars {
+        margin-top: 4px;
+        color: gold;
+      }
+
+      .cart-btn {
+        display: block;
+        margin: 125px auto 20px;
+        padding: 10px 25px;
+        background-color: #077533;
+        color: white;
+        border: none;
+        font-weight: bold;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .cart-btn:hover {
+        background-color: #015021;
+      }
+
+      .logo-image {
+        display: none;
+        height: 40px;
+      }
+
+      .logo-text {
+        font-family: "Great Vibes", cursive;
+        font-size: 2em;
+        color: #fff;
+        display: block;
+      }
+
+      @media (max-width: 600px) {
+        .logo-text {
+          display: none;
+        }
+
+        .logo-image {
+          display: inline;
+          width: 30px;
+          height: 30px;
+        }
+
+        .nav-links {
+          margin-right: 30px;
+        }
+
+        .nav-links a {
+          position: relative;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+
+        .nav-links a span {
+          display: none;
+        }
+
+        .nav-links a::before {
+          font-family: "Font Awesome 6 Free";
+          font-weight: 900;
+          font-size: 26px;
+          color: white;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        .nav-links a[href="Animora.html"]::before {
+          content: "\f015";
+        }
+
+        .nav-links a[href="Shop.html"]::before {
+          content: "\f54e";
+        }
+
+        .nav-links a[href="About.html"]::before {
+          content: "\f05a";
+        }
+
+        .nav-links a[href="Contact.html"]::before {
+          content: "\f0e0";
+        }
+
+        .monster {
+          top: 0;
+          right: 0;
+          transform: translate(0, 0);
+        }
+
+        .monster-image {
+          width: 100px;
+          height: auto;
+        }
+      }
+      .toggle-btn {
+        margin-top: 8px;
+        font-size: 0.3em;
+        cursor: pointer;
+        border: none; /* remove border */
+        background-color: transparent; /* remove background */
+        padding: 0;
+      }
+
+      .toggle-btn:hover {
+        transform: scale(1.05);
+      }
+
+      .anime-icon {
+        font-size: 1.2em;
+        animation: float 1.5s infinite ease-in-out;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.85;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.85;
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+      .rotate-once {
+        animation: rotateAnime 0.2s ease-in-out;
+      }
+
+      @keyframes rotateAnime {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .coming-soon-text {
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 3;
+        pointer-events: auto; /* Optional: allow clicking */
+        color: #cc01a4;
+        font-size: 1.6em;
+        background-color: #222;
+
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: float 1.2s ease-in-out infinite;
+        font-weight: bold;
+        margin-bottom: 10px;
+        border-radius: 10px;
+      }
+
+      .hidden-14 {
+        display: none !important;
+      }
+      .hidden-15 {
+        display: none !important;
+      }
+      .hidden-16 {
+        display: none !important;
+      }
+      .tooltip-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+        width: max-content;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 6px;
+        position: absolute;
+        bottom: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: opacity 0.3s ease;
+        font-size: 10px;
+        white-space: nowrap;
+        z-index: 10;
+      }
+
+      .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+      .search-tooltip-wrapper {
+        position: absolute;
+        top: -15px;
+        right: 2px;
+      }
+
+      .search-tooltip-wrapper a {
+        position: relative;
+        display: inline-block;
+      }
+
+      .search-tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: -14px;
+        right: -8px;
+        background-color: #cc84fc;
+        color: #6f025a;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        white-space: nowrap;
+        transition: opacity 0.1s ease;
+        z-index: 100;
+        font-weight: bold;
+      }
+
+      .search-tooltip-wrapper a:hover .search-tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header-background"></div>
+
+    <nav class="navbar">
+      <div class="logo-container">
+        <a href="Animora.html" class="logo-text">Animora</a>
+        <a href="Animora.html"
+          ><img src="images/nicee.png" alt="Animora Logo" class="logo-image"
+        /></a>
+      </div>
+      <div class="nav-links">
+        <a href="Animora.html"><span>Home</span></a>
+        <a href="Shop.html" class="active"><span>Shop</span></a>
+        <a href="About.html"><span>About</span></a>
+        <a href="Contact.html"><span>Contact</span></a>
+      </div>
+      <div class="monster">
+        <img src="images/monster.png" alt="Monster" class="monster-image" />
+      </div>
+    </nav>
+
+    <button class="cart-btn" onclick="window.location.href='Cart.html'">
+      GO TO CART 🛒
+    </button>
+    <section class="shop-section">
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/1W.png"
+            class="add-to-cart toggle-shirt1-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 1)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Regular Fit Top</div>
+        <div class="price">Rs-2875</div>
+        <div class="stars">⭐ 4.3</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/2W.png"
+            class="add-to-cart toggle-shirt2-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 2)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Regular Fit Long Sleeve Top</div>
+        <div class="price">Rs-1250</div>
+        <div class="stars">⭐ 4.2</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/3B.png"
+            class="add-to-cart toggle-shirt3-img"
+            alt="Shirt"
+            style="background-color: #6d6a6a"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 3)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Muscle Fit Short Sleeve Top</div>
+        <div class="price">Rs-2163</div>
+        <div class="stars">⭐ 4.4</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/4W.png"
+            class="add-to-cart toggle-shirt4-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 4)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Oversized Top</div>
+        <div class="price">Rs-2992</div>
+        <div class="stars">⭐ 4.1</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/5W.png"
+            class="add-to-cart toggle-shirt5-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 5)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Fitted Top</div>
+        <div class="price">Rs-2344</div>
+        <div class="stars">⭐ 4.2</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/6W.png"
+            class="add-to-cart toggle-shirt6-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 6)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Soft Tee</div>
+        <div class="price">Rs-1045</div>
+        <div class="stars">⭐ 4.0</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/7W.png"
+            class="add-to-cart toggle-shirt7-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 7)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Urban Vibe</div>
+        <div class="price">Rs-1529</div>
+        <div class="stars">⭐ 4.3</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/8B.png"
+            class="add-to-cart toggle-shirt8-img"
+            alt="Shirt"
+            style="background-color: #6d6a6a"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 8)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Casual Glow</div>
+        <div class="price">Rs-1888</div>
+        <div class="stars">⭐ 4.4</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/9W.png"
+            class="add-to-cart toggle-shirt9-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 9)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Shadow Breeze</div>
+        <div class="price">Rs-1504</div>
+        <div class="stars">⭐ 4.5</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/10W.png"
+            class="add-to-cart toggle-shirt10-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 10)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Midnight Echo</div>
+        <div class="price">Rs-2700</div>
+        <div class="stars">⭐ 4.4</div>
+      </div>
+
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/11W.png"
+            class="add-to-cart toggle-shirt11-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 11)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Midnight Echo</div>
+        <div class="price">Rs-1399</div>
+        <div class="stars">⭐ 4.4</div>
+      </div>
+      <!-- New Product Card (Shirt 12) -->
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/12B.png"
+            class="add-to-cart toggle-shirt12-img"
+            alt="Shirt"
+            style="background-color: #6d6a6a"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 12)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Shadow Frost</div>
+        <div class="price">Rs-1999</div>
+        <div class="stars">⭐ 4.6</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/13W.png"
+            class="add-to-cart toggle-shirt13-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 13)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Lunar Ash</div>
+        <div class="price">Rs-1499</div>
+        <div class="stars">⭐ 4.7</div>
+      </div>
+      <div class="product-card product-card-14">
+        <div class="image-container">
+          <div class="image-wrapper-14">
+            <img
+              src="images/14W.png"
+              class="add-to-cart toggle-shirt14-img"
+              alt="Shirt"
+              style="background-color: #222"
+            />
+          </div>
+          <button class="toggle-btn" onclick="toggleShirt14(this)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title title-14">Shadow Mist</div>
+        <div class="price price-14">Rs-1599</div>
+        <div class="stars stars-14">⭐ 4.8</div>
+      </div>
+      <div class="product-card product-card-15">
+        <div class="image-container">
+          <div class="image-wrapper-15">
+            <img
+              src="images/15W.png"
+              class="add-to-cart toggle-shirt15-img"
+              alt="Shirt"
+              style="background-color: #222"
+            />
+          </div>
+          <button class="toggle-btn" onclick="toggleShirt15(this)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title title-15">Storm Black</div>
+        <div class="price price-15">Rs-1699</div>
+        <div class="stars stars-15">⭐ 4.9</div>
+      </div>
+      <div class="product-card product-card-16">
+        <div class="image-container">
+          <div class="image-wrapper-16">
+            <img
+              src="images/16W.png"
+              class="add-to-cart toggle-shirt16-img"
+              alt="Shirt"
+              style="background-color: #6d6a6a"
+            />
+          </div>
+          <button class="toggle-btn" onclick="toggleShirt16(this)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title title-16">Misty Glow</div>
+        <div class="price price-16">Rs-1599</div>
+        <div class="stars stars-16">⭐ 4.8</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/17W.png"
+            class="add-to-cart toggle-shirt17-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 17)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Titan Wrath</div>
+        <div class="price">Rs-2299</div>
+        <div class="stars">⭐ 4.3</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/18W.png"
+            class="add-to-cart toggle-shirt18-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 18)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Celestial Rage</div>
+        <div class="price">Rs-1199</div>
+        <div class="stars">⭐ 4.9</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/19W.png"
+            class="add-to-cart toggle-shirt19-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 19)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Celestial Rage</div>
+        <div class="price">Rs-1499</div>
+        <div class="stars">⭐ 4.8</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/20W.png"
+            class="add-to-cart toggle-shirt20-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 20)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Celestial Rage</div>
+        <div class="price">Rs-1699</div>
+        <div class="stars">⭐ 4.8</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/21W.png"
+            class="add-to-cart toggle-shirt21-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 21)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Celestial Rage</div>
+        <div class="price">Rs-1999</div>
+        <div class="stars">⭐ 4.8</div>
+      </div>
+      <div class="product-card product-card-22">
+        <div class="image-container">
+          <div class="image-wrapper-22">
+            <img
+              src="images/22B.png"
+              class="add-to-cart toggle-shirt22-img"
+              alt="Shirt"
+              style="background-color: #6d6a6a"
+            />
+          </div>
+          <button class="toggle-btn" onclick="toggleShirt22(this)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title title-22">Midnight Burst</div>
+        <div class="price price-22">Rs-1699</div>
+        <div class="stars stars-22">⭐ 4.9</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/23W.png"
+            class="add-to-cart toggle-shirt23-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 23)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Urban Sheen</div>
+        <div class="price">Rs-1899</div>
+        <div class="stars">⭐ 4.6</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/24W.png"
+            class="add-to-cart toggle-shirt24-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 24)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Urban Sheen</div>
+        <div class="price">Rs-1899</div>
+        <div class="stars">⭐ 4.6</div>
+      </div>
+      <div class="product-card">
+        <div class="image-container">
+          <img
+            src="images/25W.png"
+            class="add-to-cart toggle-shirt25-img"
+            alt="Shirt"
+            style="background-color: #222"
+          />
+          <button class="toggle-btn" onclick="toggleShirt(this, 25)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title">Urban Sheen</div>
+        <div class="price">Rs-1899</div>
+        <div class="stars">⭐ 4.6</div>
+      </div>
+      <div class="product-card product-card-26">
+        <div class="image-container">
+          <div class="image-wrapper-26">
+            <img
+              src="images/26W.png"
+              class="add-to-cart toggle-shirt26-img"
+              alt="Shirt"
+              style="background-color: #222"
+            />
+          </div>
+          <button class="toggle-btn" onclick="toggleShirt26(this)">
+            <div class="tooltip-container">
+              <img
+                src="images/korea.png"
+                class="anime-icon"
+                style="width: 30px; height: 30px"
+                alt="Toggle"
+              />
+              <span class="tooltip-text">Switch</span>
+            </div>
+          </button>
+          <div class="search-tooltip-wrapper">
+            <a
+              href="overview.html?shirt=regular-fit&name=Regular%20Fit%20Top&price=2875&img=images/shirt100.png&material=100%25%20Organic%20Cotton"
+            >
+              <img src="images/search.png" class="search-icon" alt="Overview" />
+              <span class="search-tooltip-text">Overview</span>
+            </a>
+          </div>
+        </div>
+        <div class="product-title title-26">Lavender Calm</div>
+        <div class="price price-26">Rs-1799</div>
+        <div class="stars stars-26">⭐ 4.7</div>
+      </div>
+    </section>
+
+    <div
+      id="popup"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #4caf50;
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        font-weight: bold;
+        font-size: 1rem;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 9999;
+        cursor: pointer;
+      "
+    >
+      ✅ Item added to cart!
+    </div>
+
+    <script>
+      const popup = document.getElementById("popup");
+      const cartButton = document.querySelector(".cart-btn");
+
+      function bindImageClicks() {
+        const images = document.querySelectorAll(".add-to-cart");
+
+        images.forEach((img) => {
+          img.onclick = () => {
+            const productCard = img.closest(".product-card");
+            const src = img.getAttribute("src");
+            const title = productCard.querySelector(".product-title").innerText;
+            const priceText = productCard.querySelector(".price").innerText;
+            const price = priceText.replace(/[^\d.]/g, "");
+            const item = { src, title, price };
+
+            // Save to cart
+            let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+            cartItems.push(item);
+            localStorage.setItem("cart", JSON.stringify(cartItems));
+
+            // --- Floating Animation (Preserved Original Style) ---
+            const clone = new Image();
+            clone.src = img.src;
+            clone.style.position = "fixed";
+            clone.style.left = img.getBoundingClientRect().left + "px";
+            clone.style.top = img.getBoundingClientRect().top + "px";
+            clone.style.width = img.offsetWidth + "px";
+            clone.style.height = img.offsetHeight + "px";
+            clone.style.transition = "all 0.8s ease-in-out";
+            clone.style.zIndex = 10000;
+            clone.style.pointerEvents = "none";
+            clone.style.opacity = "1";
+            clone.style.borderRadius = "10px";
+            clone.style.background = "none";
+            clone.style.boxShadow = "none";
+            clone.style.objectFit = "contain";
+            document.body.appendChild(clone);
+
+            const imgRect = img.getBoundingClientRect();
+            const cartRect = cartButton.getBoundingClientRect();
+
+            requestAnimationFrame(() => {
+              clone.style.left = cartRect.left + cartRect.width / 2 - 15 + "px";
+              clone.style.top = cartRect.top + cartRect.height / 2 - 15 + "px";
+              clone.style.width = "30px";
+              clone.style.height = "30px";
+              clone.style.opacity = "0";
+            });
+
+            setTimeout(() => clone.remove(), 900);
+
+            // --- Popup Logic ---
+            setTimeout(() => {
+              popup.style.display = "block";
+              popup.style.opacity = "0";
+
+              setTimeout(() => {
+                popup.style.opacity = "1";
+              }, 10);
+
+              const timer = setTimeout(() => {
+                popup.style.opacity = "0";
+                setTimeout(() => (popup.style.display = "none"), 500);
+              }, 1200);
+
+              popup.onclick = () => {
+                clearTimeout(timer);
+                popup.style.opacity = "0";
+                setTimeout(() => (popup.style.display = "none"), 500);
+              };
+            }, 850);
+          };
+        });
+      }
+
+      function toggleShirt(button, shirtNumber) {
+        const icon = button.querySelector(".anime-icon");
+        icon.classList.add("rotate-once");
+
+        const img = button.parentElement.querySelector(
+          `.toggle-shirt${shirtNumber}-img`
+        );
+
+        const isWhite = img.src.includes(`${shirtNumber}W.png`);
+        img.src = `images/${shirtNumber}${isWhite ? "B" : "W"}.png`;
+        img.style.backgroundColor = isWhite ? "#6d6a6a" : "#222";
+
+        setTimeout(() => {
+          icon.classList.remove("rotate-once");
+        }, 600);
+      }
+
+      function toggleShirt14(button) {
+        const icon = button.querySelector(".anime-icon");
+        icon.classList.add("rotate-once");
+
+        const wrapper = button.parentElement.querySelector(".image-wrapper-14");
+        const searchLink =
+          button.parentElement.querySelector(".search-link-14");
+        const title = document.querySelector(".title-14");
+        const price = document.querySelector(".price-14");
+        const stars = document.querySelector(".stars-14");
+
+        const isComingSoon =
+          wrapper.querySelector(".coming-soon-text") !== null;
+
+        if (isComingSoon) {
+          // Restore image + details
+          wrapper.innerHTML = `
+        <img
+          src="images/14W.png"
+          class="add-to-cart toggle-shirt14-img"
+          alt="Shirt"
+          style="background-color: #222"
+        />
+      `;
+          searchLink.classList.remove("hidden-14");
+          title.classList.remove("hidden-14");
+          price.classList.remove("hidden-14");
+          stars.classList.remove("hidden-14");
+
+          bindImageClicks(); // Re-bind click after restoring image
+        } else {
+          // Show Coming Soon + hide details
+          wrapper.innerHTML = '<div class="coming-soon-text">COMING SOON</div>';
+          searchLink.classList.add("hidden-14");
+          title.classList.add("hidden-14");
+          price.classList.add("hidden-14");
+          stars.classList.add("hidden-14");
+        }
+
+        setTimeout(() => {
+          icon.classList.remove("rotate-once");
+        }, 600);
+      }
+      function toggleShirt15(button) {
+        const icon = button.querySelector(".anime-icon");
+        icon.classList.add("rotate-once");
+
+        const wrapper = button.parentElement.querySelector(".image-wrapper-15");
+        const searchLink =
+          button.parentElement.querySelector(".search-link-15");
+        const title = document.querySelector(".title-15");
+        const price = document.querySelector(".price-15");
+        const stars = document.querySelector(".stars-15");
+
+        const isComingSoon =
+          wrapper.querySelector(".coming-soon-text") !== null;
+
+        if (isComingSoon) {
+          // Restore image + details
+          wrapper.innerHTML = `
+      <img
+        src="images/15W.png"
+        class="add-to-cart toggle-shirt15-img"
+        alt="Shirt"
+        style="background-color: #222"
+      />
+    `;
+          searchLink.classList.remove("hidden-15");
+          title.classList.remove("hidden-15");
+          price.classList.remove("hidden-15");
+          stars.classList.remove("hidden-15");
+
+          bindImageClicks(); // Re-bind click after restoring image
+        } else {
+          // Show Coming Soon + hide details
+          wrapper.innerHTML = '<div class="coming-soon-text">COMING SOON</div>';
+          searchLink.classList.add("hidden-15");
+          title.classList.add("hidden-15");
+          price.classList.add("hidden-15");
+          stars.classList.add("hidden-15");
+        }
+
+        setTimeout(() => {
+          icon.classList.remove("rotate-once");
+        }, 600);
+      }
+      function toggleShirt16(button) {
+        const icon = button.querySelector(".anime-icon");
+        icon.classList.add("rotate-once");
+
+        const wrapper = button.parentElement.querySelector(".image-wrapper-16");
+        const searchLink =
+          button.parentElement.querySelector(".search-link-16");
+        const title = document.querySelector(".title-16");
+        const price = document.querySelector(".price-16");
+        const stars = document.querySelector(".stars-16");
+
+        const isComingSoon =
+          wrapper.querySelector(".coming-soon-text") !== null;
+
+        if (isComingSoon) {
+          // Restore image + details
+          wrapper.innerHTML = `
+      <img
+        src="images/16W.png"
+        class="add-to-cart toggle-shirt16-img"
+        alt="Shirt"
+        style="background-color: #6d6a6a"
+      />
+    `;
+          searchLink.classList.remove("hidden-16");
+          title.classList.remove("hidden-16");
+          price.classList.remove("hidden-16");
+          stars.classList.remove("hidden-16");
+
+          bindImageClicks?.(); // Optional if needed
+        } else {
+          // Show Coming Soon + hide details
+          wrapper.innerHTML = '<div class="coming-soon-text">COMING SOON</div>';
+          searchLink.classList.add("hidden-16");
+          title.classList.add("hidden-16");
+          price.classList.add("hidden-16");
+          stars.classList.add("hidden-16");
+        }
+
+        setTimeout(() => {
+          icon.classList.remove("rotate-once");
+        }, 600);
+      }
+      function toggleShirt22(button) {
+        const icon = button.querySelector(".anime-icon");
+        icon.classList.add("rotate-once");
+
+        const wrapper = button.parentElement.querySelector(".image-wrapper-22");
+        const searchLink =
+          button.parentElement.querySelector(".search-link-22");
+        const title = document.querySelector(".title-22");
+        const price = document.querySelector(".price-22");
+        const stars = document.querySelector(".stars-22");
+
+        const isComingSoon =
+          wrapper.querySelector(".coming-soon-text") !== null;
+
+        if (isComingSoon) {
+          // Restore image + details
+          wrapper.innerHTML = `
+      <img
+        src="images/22B.png"
+        class="add-to-cart toggle-shirt22-img"
+        alt="Shirt"
+        style="background-color: #6d6a6a"
+      />
+    `;
+          searchLink.classList.remove("hidden-22");
+          title.classList.remove("hidden-22");
+          price.classList.remove("hidden-22");
+          stars.classList.remove("hidden-22");
+
+          bindImageClicks?.(); // Optional
+        } else {
+          // Show Coming Soon + hide details
+          wrapper.innerHTML = '<div class="coming-soon-text">COMING SOON</div>';
+          searchLink.classList.add("hidden-22");
+          title.classList.add("hidden-22");
+          price.classList.add("hidden-22");
+          stars.classList.add("hidden-22");
+        }
+
+        setTimeout(() => {
+          icon.classList.remove("rotate-once");
+        }, 600);
+      }
+      function toggleShirt26(button) {
+        const icon = button.querySelector(".anime-icon");
+        icon.classList.add("rotate-once");
+
+        const wrapper = button.parentElement.querySelector(".image-wrapper-26");
+        const searchLink =
+          button.parentElement.querySelector(".search-link-26");
+        const title = document.querySelector(".title-26");
+        const price = document.querySelector(".price-26");
+        const stars = document.querySelector(".stars-26");
+
+        const isComingSoon =
+          wrapper.querySelector(".coming-soon-text") !== null;
+
+        if (isComingSoon) {
+          // Restore image + details
+          wrapper.innerHTML = `
+      <img
+        src="images/26W.png"
+        class="add-to-cart toggle-shirt26-img"
+        alt="Shirt"
+        style="background-color: #222"
+      />
+    `;
+          searchLink.classList.remove("hidden-26");
+          title.classList.remove("hidden-26");
+          price.classList.remove("hidden-26");
+          stars.classList.remove("hidden-26");
+
+          bindImageClicks?.(); // Optional
+        } else {
+          // Show Coming Soon + hide details
+          wrapper.innerHTML = '<div class="coming-soon-text">COMING SOON</div>';
+          searchLink.classList.add("hidden-26");
+          title.classList.add("hidden-26");
+          price.classList.add("hidden-26");
+          stars.classList.add("hidden-26");
+        }
+
+        setTimeout(() => {
+          icon.classList.remove("rotate-once");
+        }, 600);
+      }
+
+      // Bind click listeners initially after page load
+      bindImageClicks();
+    </script>
+  </body>
+</html>
