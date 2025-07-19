@@ -200,17 +200,58 @@
         color: gold;
       }
 
+      .cart-container {
+        position: fixed;
+        top: 125px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .drag-handle {
+        width: 30px;
+        height: 20px;
+        background-color: #077533;
+        border-radius: 10px 10px 0 0;
+        cursor: grab;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        transition: background-color 0.3s ease;
+        user-select: none;
+      }
+
+      .drag-handle:hover {
+        background-color: #015021;
+      }
+
+      .drag-handle:active {
+        cursor: grabbing;
+      }
+
+      .drag-handle::before {
+        content: "⋮⋮";
+        letter-spacing: -2px;
+        line-height: 1;
+      }
+
       .cart-btn {
         display: block;
-        margin: 125px auto 20px;
         padding: 10px 25px;
         background-color: #077533;
         color: white;
         border: none;
         font-weight: bold;
-        border-radius: 20px;
+        border-radius: 0 0 20px 20px;
         cursor: pointer;
         font-size: 1rem;
+        margin: 0;
       }
 
       .cart-btn:hover {
@@ -466,9 +507,12 @@
       </div>
     </nav>
 
-    <button class="cart-btn" onclick="window.location.href='Cart.html'">
-      GO TO CART 🛒
-    </button>
+    <div class="cart-container" id="cartContainer">
+      <div class="drag-handle" id="dragHandle"></div>
+      <button class="cart-btn" onclick="window.location.href='Cart.html'">
+        GO TO CART 🛒
+      </button>
+    </div>
     <section class="shop-section">
       <div class="product-card">
         <div class="image-container">
@@ -1659,6 +1703,83 @@
 
       // Bind click listeners initially after page load
       bindImageClicks();
+
+      // Drag functionality for cart container
+      let isDragging = false;
+      let currentX;
+      let currentY;
+      let initialX;
+      let initialY;
+      let xOffset = 0;
+      let yOffset = 0;
+
+      const cartContainer = document.getElementById("cartContainer");
+      const dragHandle = document.getElementById("dragHandle");
+
+      // Add click functionality to drag handle
+      dragHandle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        window.location.href = 'Cart.html';
+      });
+
+      // Drag functionality
+      dragHandle.addEventListener("mousedown", dragStart);
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", dragEnd);
+
+      // Touch events for mobile
+      dragHandle.addEventListener("touchstart", dragStart);
+      document.addEventListener("touchmove", drag);
+      document.addEventListener("touchend", dragEnd);
+
+      function dragStart(e) {
+        if (e.type === "touchstart") {
+          initialX = e.touches[0].clientX - xOffset;
+          initialY = e.touches[0].clientY - yOffset;
+        } else {
+          initialX = e.clientX - xOffset;
+          initialY = e.clientY - yOffset;
+        }
+
+        if (e.target === dragHandle) {
+          isDragging = true;
+        }
+      }
+
+      function drag(e) {
+        if (isDragging) {
+          e.preventDefault();
+          
+          if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+          } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+          }
+
+          xOffset = currentX;
+          yOffset = currentY;
+
+          // Constrain to viewport bounds
+          const rect = cartContainer.getBoundingClientRect();
+          const maxX = window.innerWidth - rect.width;
+          const maxY = window.innerHeight - rect.height;
+          
+          xOffset = Math.max(0, Math.min(xOffset, maxX));
+          yOffset = Math.max(0, Math.min(yOffset, maxY));
+
+          cartContainer.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+          cartContainer.style.left = "0";
+          cartContainer.style.top = "125px";
+        }
+      }
+
+      function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+      }
     </script>
   </body>
 </html>
